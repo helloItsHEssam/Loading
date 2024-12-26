@@ -1,6 +1,6 @@
 # Loading animation <img alt="Logo" src="icon.png" align="right" height="50">
 
-Show infinity loading with animation in SwiftUI.
+Show infinite loading with animation in SwiftUI.
 ## Inspiration 💡
 
 The main idea of this source code is based on [Loading](https://dribbble.com/shots/14119730-loading), created by [bingbing](https://dribbble.com/bingbing) as part of the [Nice100Team](https://dribbble.com/Nice100).
@@ -20,7 +20,7 @@ The main idea of this source code is based on [Loading](https://dribbble.com/sho
 1. Clone the repository:
 
   ``` bash
-    git clone https://github.com/helloItsHEssam/DownloadLoading.git
+    git clone https://github.com/helloItsHEssam/Loading.git
   ```
 
 ###  Contributing 🤝
