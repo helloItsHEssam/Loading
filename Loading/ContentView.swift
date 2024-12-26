@@ -32,57 +32,65 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
+            Color(.background)
+                .ignoresSafeArea()
             
-            ArcShape(
-                fromPosition: isAnimatingForward ? 0 : completionFraction,
-                endPosition: isAnimatingForward ? completionFraction : 1.0)
-            .stroke(.red, style: StrokeStyle(
-                lineWidth: 10,
-                lineCap: .round,
-                lineJoin: .bevel
-            )
-            )
-            .frame(width: 100, height: 100)
+            ZStack {
+                Color(.background)
+                    .ignoresSafeArea()
+                
+                ArcShape(
+                    fromPosition: isAnimatingForward ? 0 : completionFraction,
+                    endPosition: isAnimatingForward ? completionFraction : 1.0)
+                .stroke(Color.arc, style: StrokeStyle(
+                    lineWidth: 10,
+                    lineCap: .round,
+                    lineJoin: .bevel
+                )
+                )
+                .frame(width: 100, height: 100)
+                
+                Circle()
+                    .fill(Color.arc)
+                    .frame(width: 10)
+                    .offset(x: -50, y: 50)
+                    .opacity(redCircleOpacity)
+                    .offset(x: redCircleOffset)
+                
+                Circle()
+                    .fill(Color.target)
+                    .frame(width: 10)
+                    .offset(x: 50, y: 50)
+                    .offset(x: yellowCircleOffset)
+            }
+            .offset(x: arcOffsetX)
             
-            Circle()
-                .fill(Color.red)
-                .frame(width: 10)
-                .offset(x: -50, y: 50)
-                .opacity(redCircleOpacity)
-                .offset(x: redCircleOffset)
-            
-            Circle()
-                .fill(Color.yellow)
-                .frame(width: 10)
-                .offset(x: 50, y: 50)
-                .offset(x: yellowCircleOffset)
         }
-        .offset(x: arcOffsetX)
         .onAppear {
             startPeriodicAnimation(
                 animationStep: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                    withAnimation(springAnimation) {
-                        yellowCircleOffset = 100
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                        withAnimation(springAnimation) {
+                            yellowCircleOffset = 100
+                        }
                     }
-                }
-                completionFraction = 1.0
-                arcOffsetX = -50
-                redCircleOpacity = 0
-
-            }, midwayChangesWithoutAnimation: {
-                redCircleOffset = 100
-                redCircleOpacity = 1
-            }, midwayCompletion: {
-                isAnimatingForward.toggle()
-                arcOffsetX = -100
-            }, fullCycleCompletion: {
-                yellowCircleOffset = 0
-                redCircleOffset = 0
-                arcOffsetX = 0
-                isAnimatingForward = true
-                completionFraction = 0
-            })
+                    completionFraction = 1.0
+                    arcOffsetX = -50
+                    redCircleOpacity = 0
+                    
+                }, midwayChangesWithoutAnimation: {
+                    redCircleOffset = 100
+                    redCircleOpacity = 1
+                }, midwayCompletion: {
+                    isAnimatingForward.toggle()
+                    arcOffsetX = -100
+                }, fullCycleCompletion: {
+                    yellowCircleOffset = 0
+                    redCircleOffset = 0
+                    arcOffsetX = 0
+                    isAnimatingForward = true
+                    completionFraction = 0
+                })
         }
     }
     
